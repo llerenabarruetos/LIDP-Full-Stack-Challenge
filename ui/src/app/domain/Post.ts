@@ -1,7 +1,7 @@
 export class Post {
-  identification: string;
+  identification: number;
   title: string;
-  sub_title: string;
+  subTitle: string;
   body: string;
   link: string;
   image: string;

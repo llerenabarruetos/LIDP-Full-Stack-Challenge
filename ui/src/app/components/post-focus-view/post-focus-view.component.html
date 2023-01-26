@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>{{post.title}}</h1>
+<div mat-dialog-content class="focus-view-main-container" fxLayout="row">
+    <div #leftHalf fxLayout="column" class="focus-left-half" (scroll)="scrollToFetchComments()">
+        <div class="focus-text-container">
+            <h3 class="limit-one-line">{{post.subTitle}}</h3>
+            <p>{{post.body}}</p>
+        </div>
+        <div class="focus-comment-container">
+            <h3>Comments: </h3>
+            <p  *ngIf="comments.length === 0">- No comments at the moment. Be the first one! -</p>
+            <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+
+        </div>
+    </div>
+
+    <img src={{post.image}} alt="Post Header Image" >
+</div>

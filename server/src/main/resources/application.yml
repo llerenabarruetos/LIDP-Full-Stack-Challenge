@@ -1,3 +1,4 @@
+
 # Spring specific configurations
 spring:
 
@@ -9,6 +10,11 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password: password
+
+  # Ensures data.sql and schema.sql are executed for database initialization:
+  sql:
+    init:
+      mode: always
 
   # Sets Spring's default dialog to H2 for simply JPA references.
   jpa:

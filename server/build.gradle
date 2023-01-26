@@ -1,50 +1,40 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.2'
-	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java'
+	id 'org.springframework.boot' version '2.7.8'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	// Spring Ecosystem
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	// Embedded H2 database
 	implementation 'com.h2database:h2'
 
-	// Unit Testing Only
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'junit:junit:4.13.2'
+	implementation 'com.querydsl:querydsl-apt:5.0.0'
+    implementation 'com.querydsl:querydsl-jpa:5.0.0'
+    annotationProcessor 'org.springframework.boot:spring-boot-starter-data-jpa'
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jpa'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
-}
-
-task cleanStatic(type: Delete) {
-	group 'ui'
-	description 'Clean Spring static content'
-
-	delete 'src/main/resources/static'
-}
-
-task copyAngularDist(type: Copy) {
-	group 'ui'
-	description 'Build and copy Angular distribution'
-
-	dependsOn 'cleanStatic', ':ui:ngBuild'
-
-	from '../ui/dist'
-	into 'src/main/resources/static'
 }

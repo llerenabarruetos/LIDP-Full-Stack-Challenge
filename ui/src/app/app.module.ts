@@ -46,11 +46,20 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatCurrencyFormatModule} from 'mat-currency-format';
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {AppService} from "./app.service";
+import { PostService } from './services/post.service';
+import { FooterComponent } from './components/footer/footer.component';
+import { PostLightViewComponent } from './components/post-light-view/post-light-view.component';
+import { PostFocusViewComponent } from './components/post-focus-view/post-focus-view.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { CommentService } from './services/comment.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
+    PostLightViewComponent,
+    PostFocusViewComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,
@@ -106,7 +115,8 @@ import {AppService} from "./app.service";
   ],
   providers: [
     Title,
-    AppService
+    PostService,
+    CommentService
   ],
   exports: [
     // Modules

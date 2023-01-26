@@ -1,13 +1,32 @@
-.footer {
-  padding-top: 1em;
-  font-size: 0.75em;
-
-  img {
-    padding-left: 1em;
-    width: 5em;
-  }
+* {
+  word-wrap: break-word;
 }
 
+.post-container {
+  background-color: rgb(47, 141, 141);
+  height: 94.5vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1.5em;
+}
+
+.no-posts-container {
+  height: 94.5vh;
+}
+
+/* Custom scrollbar: */
+::-webkit-scrollbar {
+  width: 0.4em;
+  height: 1em;
+  background-color: #011d28;
+}
+::-webkit-scrollbar-thumb {
+  background-color: lightcoral;
+  border-radius: 10px;
+}
+
+
+/* TODO: erase below classes*/
 .page {
   overflow-y: auto;
 }

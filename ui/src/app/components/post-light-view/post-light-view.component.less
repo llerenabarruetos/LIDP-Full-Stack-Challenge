@@ -1,0 +1,66 @@
+
+.post-main-container {
+    width: 25em;
+    height: auto;
+    border-radius: 1em;
+}
+
+/* - Post's content classes - */
+.post-information-container {
+    height: 33em;
+
+    /* Post Subtitle: */
+    mat-card-subtitle {
+        margin: 0;
+    }
+    /* Post Image: */
+    img {
+        height: 15em;
+        width: 25em;
+        object-fit: cover;
+        object-position: 0 0;
+        margin: 0 0 1em;
+    }
+    /* Post Body: */
+    mat-card-content {
+        height: 4.5em;
+        /* stop showing text after line 5: */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        text-align: justify;
+    }
+    /* Post "View Post" Button: */
+    button {
+        width: 10em;
+        margin: auto;
+        margin-top: 5px;
+    }
+}
+.post-header h1 {
+    margin: auto 0 auto;
+}
+.limit-one-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* - Post's Comment form classes - */
+.post-comment-form-container {
+    height: 8em;
+}
+.comment-input {
+    width: 19em;
+    background-color: rgb(83, 83, 83);
+    height: 3.5em;
+    padding: 3px 10px 3px;
+    border-radius: 15px 0 0 15px;
+}
+.comment-send-btn {
+    height: 4em;
+    border-radius: 0 15px 15px 0;
+}
