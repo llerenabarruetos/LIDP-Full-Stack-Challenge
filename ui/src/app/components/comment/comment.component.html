@@ -2,7 +2,19 @@
 <div class="comment-container">
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <h3 class="comment-author-date">{{comment.username}}</h3>
-        <p class="comment-author-date">{{timestamp.toLocaleString()}}</p>
+
+        <div class="action-corner" (mouseenter)="onMouseEnterDateCorner()" (mouseleave)="onMouseLeaveDateCorner()">
+            <p *ngIf="!hovering" class="comment-author-date" >{{timestamp.toLocaleString()}}</p>
+            <div *ngIf="hovering">
+                <button mat-icon-button [color]="color" (click)="deleteComment()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+                <button mat-icon-button [color]="color" (click)="replyToComment()">
+                    <mat-icon>reply</mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
     <p>{{comment.body}}</p>
 </div>

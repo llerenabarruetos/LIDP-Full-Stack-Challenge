@@ -7,11 +7,15 @@
         </div>
         <div class="focus-comment-container">
             <h3>Comments: </h3>
-            <p  *ngIf="comments.length === 0">- No comments at the moment. Be the first one! -</p>
-            <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+            <app-comment-form [post]="post" [focusView]="true" [replyingTo]="commentToReply"></app-comment-form>
 
+            <p  *ngIf="comments.length === 0">- No comments at the moment. Be the first one! -</p>
+
+            <app-comment *ngFor="let comment of comments" [comment]="comment"
+                (replyButtonPressed)="onReplyToComment(comment)"
+                (deleteButtonPressed)="onDeleteComment(comment)"></app-comment>
         </div>
     </div>
-
+    
     <img src={{post.image}} alt="Post Header Image" >
 </div>

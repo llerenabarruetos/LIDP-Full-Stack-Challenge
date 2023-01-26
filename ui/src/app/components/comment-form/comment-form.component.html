@@ -1,0 +1,20 @@
+<!-- Reactive Form for Commenting (Keeps track of comment value to enable username field) -->
+<form fxLayout="column" fxLayoutAlign="end center" [formGroup]="commentForm" (ngSubmit)="submitComment()">
+    <mat-form-field color="accent" *ngIf="commentHasText" [class.comment-focus-username]="focusView" >
+      <mat-label>Want to add a username?</mat-label>
+      <input matInput placeholder="Username (optional)" formControlName="username" maxlength="50">
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-form-field class="comment-input" [class.comment-focus-input]="focusView" color="accent">
+        <mat-label>{{replyingTo === null ? 'Add ' : 'Reply to '}} a Comment</mat-label>
+        <input matInput 
+          #commentInputField
+          [placeholder]="replyingTo === null ? 'This post reminds me of...' : 'Reply to ' + this.replyingTo.username" 
+          formControlName="comment" maxlength="200">
+      </mat-form-field>
+      <button mat-flat-button color="primary" class="comment-send-btn">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+</form>

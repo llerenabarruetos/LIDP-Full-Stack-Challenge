@@ -25,6 +25,9 @@ export class PostFocusViewComponent implements OnInit {
   currPage = 0;
   lastPage: number; // index of last page of comments
 
+  // Current comment the user is trying to reply to (if any):
+  commentToReply: Comment = null;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: Post, private commentService: CommentService) {
     this.post = data;
   }
@@ -41,8 +44,26 @@ export class PostFocusViewComponent implements OnInit {
     );
   }
 
+  // User clicked to reply to a comment:
+  onReplyToComment(comment: Comment) {
+    // set commentToReply to that comment so that comment-form knows (it has this.commentToReply as an @Input)
+    this.commentToReply = comment;
+  }
+  // User clicked to delete a comment:
+  onDeleteComment(comment: Comment) {
+    // DELETE REQUEST:
+    this.commentService.deleteComment(comment.identification).subscribe(
+      () => {
+        // SnackBar: You have deleted the comment
+
+        // Update local comments array to reflect deletion:
+        this.comments.splice(this.comments.findIndex((com) => com.identification === comment.identification));
+      }
+    )
+  }
+
+  // Scroll to get next page of comments:
   scrollToFetchComments(): void {
-    console.log("scrolling")
     const scrollDistance = this.leftHalf.nativeElement.scrollTop + this.leftHalf.nativeElement.clientHeight;
     if(scrollDistance >= this.leftHalf.nativeElement.scrollHeight - 20 && 
       this.currPage < this.lastPage) {

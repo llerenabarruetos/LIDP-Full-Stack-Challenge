@@ -17,28 +17,8 @@
       <p>{{post.body}}</p>
     </mat-card-content>
 
-    <button mat-raised-button color="primary" (click)="openFocusView()">View Post</button>
+    <button mat-raised-button color="primary" (click)="openFocusView()">View Comments</button>
   </div>
 
-  <div class="post-comment-form-container" fxLayout="column" fxLayoutAlign="end center">
-
-    <!-- Reactive Form for Commenting (Keeps track of comment value to enable username field) -->
-    <form fxLayout="column" fxLayoutAlign="end center" [formGroup]="commentForm" (ngSubmit)="submitComment()">
-      <mat-form-field color="accent" *ngIf="commentHasText">
-        <mat-label>Want to add a username?</mat-label>
-        <input matInput placeholder="Username (optional)" formControlName="username" maxlength="50">
-      </mat-form-field>
-
-      <div>
-        <mat-form-field class="comment-input" color="accent">
-          <mat-label>Add a Comment</mat-label>
-          <input matInput placeholder="This post reminds me of..." formControlName="comment" maxlength="200">
-        </mat-form-field>
-        <button mat-flat-button color="primary" class="comment-send-btn">
-          <mat-icon>send</mat-icon>
-        </button>
-      </div>
-    </form>
-
-  </div>
+  <app-comment-form [post]="post" [focusView]="false"></app-comment-form>
 </mat-card>
