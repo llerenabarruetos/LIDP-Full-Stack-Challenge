@@ -33,3 +33,4 @@
    
 3. Replying and Deleting comments:
    Comments have a corner for user actions. If you hover over a comment's top-right corner (where their timestamp is displayed), it will change to display the possible actions for a comment: Deletion and replying. Only top-level comments can be replied to. All comments can be deleted. Deleting a parent comment will automatically delete any children (reply) comments beneath it.
+  ![image](https://user-images.githubusercontent.com/40399062/215124649-9fda6aba-f98d-4794-bb60-051efd99f921.png)
