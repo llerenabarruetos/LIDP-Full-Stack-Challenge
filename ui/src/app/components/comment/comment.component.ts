@@ -9,10 +9,12 @@ import { Comment } from '../../domain/Comment';
 export class CommentComponent implements OnInit {
   // Comment object passed in by parent:
   @Input() comment: Comment;
+  // Boolean passed from parent: True if this comment is a reply comment:
+  @Input() isReply: boolean;
 
   // Outputs that trigger a function in Focus View:
   @Output() replyButtonPressed = new EventEmitter<void>();
-  @Output() deleteButtonPressed = new EventEmitter<void>();
+  @Output() deleteButtonPressed = new EventEmitter<number>(); // passes the comment-to-be-deleted's id 
 
   // To convert SQL timestamp to Date object
   timestamp: Date;
@@ -35,8 +37,8 @@ export class CommentComponent implements OnInit {
   }
 
   // Comment Actions:
-  deleteComment() {
-    this.deleteButtonPressed.emit();
+  deleteComment(commentId: number) {
+    this.deleteButtonPressed.emit(commentId);
   }
   replyToComment() {
     this.replyButtonPressed.emit();

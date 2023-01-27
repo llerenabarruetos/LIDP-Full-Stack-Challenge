@@ -4,6 +4,7 @@ export class Comment {
     username: string;
     createdAt: Date;
     body: string;
+    replies: Array<Comment>
   }
   
   

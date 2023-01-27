@@ -1,14 +1,23 @@
 package com.example.challenge.entity;
 
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,4 +46,16 @@ public class Comment {
     private ZonedDateTime createdAt;
 
     private String body;
+
+    // Reference to parent comment (if any)
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Comment parentComment;
+
+    // list of replies (if any)
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true,
+        mappedBy = "parentComment")
+    private Set<Comment> replies;
 }

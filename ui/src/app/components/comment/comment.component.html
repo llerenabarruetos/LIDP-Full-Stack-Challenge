@@ -1,20 +1,25 @@
 <!-- Comment Component for focus view of posts -->
-<div class="comment-container">
+<div class="comment-container" [class.reply-comment]="isReply">
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <h3 class="comment-author-date">{{comment.username}}</h3>
 
         <div class="action-corner" (mouseenter)="onMouseEnterDateCorner()" (mouseleave)="onMouseLeaveDateCorner()">
             <p *ngIf="!hovering" class="comment-author-date" >{{timestamp.toLocaleString()}}</p>
             <div *ngIf="hovering">
-                <button mat-icon-button [color]="color" (click)="deleteComment()">
+                <button mat-icon-button [color]="color" (click)="deleteComment(comment.identification)">
                     <mat-icon>delete</mat-icon>
                 </button>
 
-                <button mat-icon-button [color]="color" (click)="replyToComment()">
+                <button *ngIf="!isReply" mat-icon-button [color]="color" (click)="replyToComment()">
                     <mat-icon>reply</mat-icon>
                 </button>
             </div>
         </div>
     </div>
     <p>{{comment.body}}</p>
+
+    <app-comment *ngFor="let reply of comment.replies" [comment]="reply" [isReply]="true"
+        (deleteButtonPressed)="deleteComment(reply.identification)"
+    ></app-comment>
+    <!-- <app-reply-comment *ngFor="let reply of comment.replies" [comment]="reply"></app-reply-comment> -->
 </div>

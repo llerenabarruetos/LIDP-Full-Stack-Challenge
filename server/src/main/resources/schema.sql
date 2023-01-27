@@ -16,5 +16,8 @@ CREATE TABLE IF NOT EXISTS comments (
     username VARCHAR(64),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     body VARCHAR(MAX),
-    FOREIGN KEY(post_id) REFERENCES posts(identification)
+
+    parent_id INT,
+    FOREIGN KEY(post_id) REFERENCES posts(identification),
+    FOREIGN KEY(parent_id) REFERENCES comments(identification)
 );

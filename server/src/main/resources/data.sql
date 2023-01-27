@@ -27,6 +27,9 @@ values ( 1, 'Amy', 'I really like this post!');
 insert into comments (post_id, username, body)
 values ( 2, 'Rick', 'I agree');
 
+insert into comments (post_id, username, body, parent_id)
+values ( 1, 'Rick', 'Reply !', 1);
+
 insert into posts (title,
                    body,
                    link,

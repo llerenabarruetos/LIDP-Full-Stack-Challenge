@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, SimpleChanges, ViewChild, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Post } from '../../domain/Post';
@@ -27,7 +27,9 @@ export class CommentFormComponent implements OnInit {
 
   // Receive a comment if user has selected to reply to that comment (otherwise it is null):
   @Input() replyingTo: Comment = null;
-  inputPlaceholder = "This post reminds me of...";
+
+  // Output emitter to tell parent component to GET comments again (to show new one) if they show comments:
+  @Output() commentSubmitted = new EventEmitter<void>()
 
   constructor(private commentPostedSnackBar: MatSnackBar, private commentService: CommentService) { }
 
@@ -37,13 +39,15 @@ export class CommentFormComponent implements OnInit {
       comment: new FormControl()
     });
 
+    // Update commentHasText when comment input field value changes - this is to dynamically display the username field input
     this.commentForm.get('comment').valueChanges.subscribe(text => {
       this.commentHasText = (text != null && text.length > 0) ? true : false;
     })
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.hasOwnProperty('replyingTo')) {
+    // If parent component changes the replyingTo @Input attribute, then focus on the input bar (tells the user they can reply):
+    if (this.commentInputField && changes.hasOwnProperty('replyingTo')) {
       this.commentInputField.nativeElement.focus();
     }
   }
@@ -56,14 +60,20 @@ export class CommentFormComponent implements OnInit {
       
       // Post comment to backend:
       this.commentService.postComment(this.post.identification, 
-        authorName, this.commentForm.get('comment').value)
+        authorName, this.commentForm.get('comment').value, this.replyingTo)
         .subscribe(() => {
+          // Tell parent component that a comment has been posted. GET comments again if they want:
+          this.commentSubmitted.emit();
+
           // Handle form resetting and snackbar:
           this.commentForm.reset();
           this.commentPostedSnackBar.open("Comment successfully posted!", null, {
             duration: 4000
           });
           this.commentHasText = false;
+
+          // Make comment form not be replying to any other comment (if that was the case in the first place)
+          this.replyingTo = null;
         });
     }
   }

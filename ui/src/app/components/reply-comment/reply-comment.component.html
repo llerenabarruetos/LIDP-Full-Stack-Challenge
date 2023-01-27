@@ -1,0 +1,19 @@
+<div fxLayout="column" class="reply-comment-container">
+    <div >
+        <h3 class="comment-author-date">{{comment.username}}</h3>
+
+        <div class="action-corner" (mouseenter)="onMouseEnterDateCorner()" (mouseleave)="onMouseLeaveDateCorner()">
+            <p *ngIf="!hovering" class="comment-author-date">
+                {{comment.createdAt}}
+            </p>
+            <div *ngIf="hovering">
+                <button mat-icon-button [color]="color" (click)="deleteComment()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        
+    </div>
+    
+    <p>{{comment.body}}</p>
+</div>

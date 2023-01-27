@@ -1,4 +1,9 @@
-<h1 mat-dialog-title>{{post.title}}</h1>
+<h1 mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+    {{post.title}}
+    <a mat-icon-button aria-label="Content Source Link" href={{post.link}} target="_blank">
+        <mat-icon>open_in_new</mat-icon>
+    </a>
+</h1>
 <div mat-dialog-content class="focus-view-main-container" fxLayout="row">
     <div #leftHalf fxLayout="column" class="focus-left-half" (scroll)="scrollToFetchComments()">
         <div class="focus-text-container">
@@ -7,13 +12,14 @@
         </div>
         <div class="focus-comment-container">
             <h3>Comments: </h3>
-            <app-comment-form [post]="post" [focusView]="true" [replyingTo]="commentToReply"></app-comment-form>
+            <app-comment-form [post]="post" [focusView]="true" [replyingTo]="commentToReply"
+                (commentSubmitted)="getComments(true)"></app-comment-form>
 
-            <p  *ngIf="comments.length === 0">- No comments at the moment. Be the first one! -</p>
+            <p  *ngIf="comments.length === 0">- It's a little quiet here. Be the first comment! -</p>
 
-            <app-comment *ngFor="let comment of comments" [comment]="comment"
+            <app-comment *ngFor="let comment of comments" [comment]="comment" [isReply]="false"
                 (replyButtonPressed)="onReplyToComment(comment)"
-                (deleteButtonPressed)="onDeleteComment(comment)"></app-comment>
+                (deleteButtonPressed)="onDeleteComment($event)"></app-comment>
         </div>
     </div>
     

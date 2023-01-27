@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Post } from '../../domain/Post';
 import { Comment } from '../../domain/Comment';
 import { CommentService } from '../../services/comment.service';
@@ -28,19 +29,30 @@ export class PostFocusViewComponent implements OnInit {
   // Current comment the user is trying to reply to (if any):
   commentToReply: Comment = null;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Post, private commentService: CommentService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Post, private commentService: CommentService,
+    private commentDeletedSnackBar: MatSnackBar) {
     this.post = data;
   }
 
   ngOnInit(): void {
     this.subscriptions.push(
-      // get first page (0) of comments
-      this.commentService.getComments(this.currPage, this.post.identification).subscribe(
-        comments => { 
+      this.getComments(true)
+    );
+  }
+
+  getComments(refresh: boolean): Subscription {
+    // refresh: true if comments array should be resetted instead of appended to
+    this.currPage = refresh ? 0 : this.currPage;
+
+    // get first page (0) of comments
+    return this.commentService.getComments(this.currPage, this.post.identification).subscribe(
+      comments => { 
+        if (refresh)
+          this.comments = comments.content;
+        else
           this.comments = this.comments.concat(comments.content);
-          this.lastPage = comments.totalPages;
-        }
-      )
+        this.lastPage = comments.totalPages;
+      }
     );
   }
 
@@ -49,15 +61,18 @@ export class PostFocusViewComponent implements OnInit {
     // set commentToReply to that comment so that comment-form knows (it has this.commentToReply as an @Input)
     this.commentToReply = comment;
   }
-  // User clicked to delete a comment:
-  onDeleteComment(comment: Comment) {
+  // User clicked to delete a comment (commentId is passed in via emit() from the child to this component (the parent))
+  onDeleteComment(commentId: number) {
     // DELETE REQUEST:
-    this.commentService.deleteComment(comment.identification).subscribe(
+    this.commentService.deleteComment(commentId).subscribe(
       () => {
-        // SnackBar: You have deleted the comment
+        // SnackBar notice of deletion:
+        this.commentDeletedSnackBar.open("Comment successfully deleted!", null, {
+          duration: 4000
+        });
 
-        // Update local comments array to reflect deletion:
-        this.comments.splice(this.comments.findIndex((com) => com.identification === comment.identification));
+        // Update comments array:
+        this.getComments(true);
       }
     )
   }
@@ -69,9 +84,7 @@ export class PostFocusViewComponent implements OnInit {
       this.currPage < this.lastPage) {
         this.currPage++;
 
-        this.commentService.getComments(this.currPage, this.post.identification).subscribe(
-          comments => this.comments = this.comments.concat(comments.content)
-        )
+        this.getComments(false);
     }
   }
 
