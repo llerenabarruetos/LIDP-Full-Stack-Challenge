@@ -11,10 +11,11 @@ spring:
     username: sa
     password: password
 
-  # Ensures data.sql and schema.sql are executed for database initialization:
-  sql:
-    init:
-      mode: always
+  # IF WE WANTED data.sql and schema.sql to be executed on every DB initialization, we'd use this:
+  # Please note: This means the tables are dropped and re-filled on every run. But since we want "persistent comments", we don't do that
+  # sql:
+  #   init:
+  #     mode: always
 
   # Sets Spring's default dialog to H2 for simply JPA references.
   jpa:

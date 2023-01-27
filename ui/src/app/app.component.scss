@@ -1,7 +1,8 @@
 * {
-  word-wrap: break-word;
+  word-wrap: break-word; // In case users enter big words. So that they are broken and don't horizontally overflow
 }
 
+// Container of posts (Light view) on main page:
 .post-container {
   background-color: rgb(47, 141, 141);
   height: 94.5vh;
@@ -10,11 +11,12 @@
   padding: 1.5em;
 }
 
+// Container of element informing that there are no posts:
 .no-posts-container {
   height: 94.5vh;
 }
 
-/* Custom scrollbar: */
+/* Reusable Custom scrollbar: */
 ::-webkit-scrollbar {
   width: 0.4em;
   height: 1em;
@@ -23,21 +25,4 @@
 ::-webkit-scrollbar-thumb {
   background-color: lightcoral;
   border-radius: 10px;
-}
-
-
-/* TODO: erase below classes*/
-.page {
-  overflow-y: auto;
-}
-
-.post {
-  max-width: 25em;
-  margin-bottom: 1em;
-}
-
-.post-image {
-  max-height: 25em;
-  object-fit: cover;
-  object-position: top;
 }

@@ -46,6 +46,7 @@ public class Comment {
 
     private String body;
 
+    // Comments with replies have a list of replies. The replies themselves have a reference to their parent comment: = = = =
     // Reference to parent comment (if any)
     @JsonBackReference
     @ManyToOne

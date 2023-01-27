@@ -15,6 +15,7 @@ import com.querydsl.core.types.Predicate;
 @RestController
 @RequestMapping("/posts")
 public class PostsController {
+   // Outlines the request mappings for posts:
    @Autowired
    private PostsService postsService;
 

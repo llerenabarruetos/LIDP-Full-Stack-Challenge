@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { Comment } from '../domain/Comment';
+import { handleError } from './error-handling.service';
 
 // Header for POST request:
 const httpOptions = {
@@ -34,7 +35,7 @@ export class CommentService {
         httpOptions
     )
         .pipe(
-            catchError(error => this.handleError(error))
+            catchError(error => handleError(error, "CommentService"))
         );
   }
 
@@ -45,25 +46,15 @@ export class CommentService {
         // Non-reply comments are specified by "parentComment=0", which means their parentComment: Comment attribute is null
         .get(`${environment.server}/comments?postId=${postId}&page=${pageNum}&size=${this.pageSize}&sort=createdAt,DESC&parentComment=0`)
         .pipe(
-            catchError(error => this.handleError(error))
+            catchError(error => handleError(error, "CommentService"))
         );
   }
 
+  // DELETE comment:
   deleteComment(commentId: number): Observable<any> {
     return this.http.delete(`${environment.server}/comments/${commentId}`)
         .pipe(
-            catchError(error => this.handleError(error))
+            catchError(error => handleError(error, "CommentService"))
         );
-  }
-
-  // Error displaying function:
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-        console.error('An error occurred in CommentService: ', error.error); // client-side or network error
-    } else {
-        // backend returned a response code that wasn't successful
-        console.error(`Server returned an unsuccessful code ${error.status}. It says: `, error.error);
-    }
-    return throwError(() => new Error('Error in CommentService happened. Something went wrong when communicating with server.'));
   }
 }

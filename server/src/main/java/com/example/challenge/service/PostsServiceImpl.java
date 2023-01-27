@@ -16,8 +16,7 @@ public class PostsServiceImpl implements PostsService {
    private PostsRepository postsRepository;
 
    @Override
-   public Page<Post> getPosts(Predicate pred, Pageable page)
-   {
+   public Page<Post> getPosts(Predicate pred, Pageable page) {
       return postsRepository.findAll(pred, page);
    }
 

@@ -16,7 +16,7 @@ export class PostLightViewComponent implements OnInit {
   constructor(private postFocusDialog: MatDialog) { }
 
   openFocusView(): void {
-    const focusDialogRef = this.postFocusDialog.open(PostFocusViewComponent, {
+    this.postFocusDialog.open(PostFocusViewComponent, {
       data: this.post
     })
   }

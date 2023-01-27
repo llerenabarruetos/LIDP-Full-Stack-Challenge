@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+	// Spring Ecosystem and Lombok
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
@@ -29,12 +30,34 @@ dependencies {
 	// Embedded H2 database
 	implementation 'com.h2database:h2'
 
+	// Query dsl
 	implementation 'com.querydsl:querydsl-apt:5.0.0'
     implementation 'com.querydsl:querydsl-jpa:5.0.0'
     annotationProcessor 'org.springframework.boot:spring-boot-starter-data-jpa'
     annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jpa'
+
+	// Unit Testing Only
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'junit:junit:4.13.2'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task cleanStatic(type: Delete) {
+	group 'ui'
+	description 'Clean Spring static content'
+
+	delete 'src/main/resources/static'
+}
+
+task copyAngularDist(type: Copy) {
+	group 'ui'
+	description 'Build and copy Angular distribution'
+
+	dependsOn 'cleanStatic', ':ui:ngBuild'
+
+	from '../ui/dist'
+	into 'src/main/resources/static'
 }

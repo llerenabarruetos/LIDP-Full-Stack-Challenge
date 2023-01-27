@@ -4,7 +4,7 @@ insert into posts (title,
                    link,
                    image)
 values ('Uno Svenningsson',
-        'Hello',
+        'Swedish Pop Artist ',
         'Uno Svenningsson (born 1 July 1959 in Hagelstorp, Sweden) is a Swedish pop singer-songwriter and guitarist, who has been active in music since the late 1970s. He was the singer in the pop group "Freda''" in the early 1980s and early 1990s, and the group had hit songs like "Vindarna" and "Det gör mig så lycklig". Since 1994, Svenningsson has been a solo artist. His first four solo albums sold approximately 300,000 copies. In 2002, Carlsberg launched a series of TV commercials for Pripps Blå, with Uno Svenningsson''s song "Vågorna" as background music. In 2007, Uno Svenningsson joined Irma Schultz Keller to participate in the Swedish Melodifestivalen 2007, and compete for the chance to represent Sweden in the Eurovision Song Contest 2007. They participated in the semi-finals in Jönköping with the song "God morgon". They qualified for the second chance round of Melodifestivalen. On 3 March 2007, they lost in the first voting of "second chance" against Sonja Alden and were eliminated from the contest. In 2016, he joined fellow singers Patrik Isaksson and Tommy Nilsson to sing at Melodifestivalen 2016 with the song "Håll mitt hjärta hårt", but the trio identified as Patrik, Tommy & Uno failed to make it to "second chance" or the finals and was eliminated from the contest. In 2017, he participated in season 8 of Så mycket bättre. He has co-written seven number hits in the United States with Max Martin.',
         'https://en.wikipedia.org/wiki/Uno_Svenningsson',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Uno_Svenningsson_Sommarkrysset_2012_By_Daniel_%C3%85hs_Karlsson.jpg/800px-Uno_Svenningsson_Sommarkrysset_2012_By_Daniel_%C3%85hs_Karlsson.jpg');
@@ -19,16 +19,19 @@ values ('Uroplatus sikorae',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Mossy_leaf-tailed_gecko_%28Uroplatus_sikorae%29%2C_Vohimana_reserve%2C_Madagascar.jpg/1280px-Mossy_leaf-tailed_gecko_%28Uroplatus_sikorae%29%2C_Vohimana_reserve%2C_Madagascar.jpg');
 
 insert into comments (post_id, username, body)
-values ( 1, 'Josh', 'Watch this show');
+values ( 1, 'Josh', 'Really cool post');
 
 insert into comments (post_id, username, body)
 values ( 1, 'Amy', 'I really like this post!');
 
 insert into comments (post_id, username, body)
-values ( 2, 'Rick', 'I agree');
+values ( 2, 'Rick', 'I agree with this post');
+
+insert into comments (post_id, username, body)
+values ( 2, 'Dr. C. Conners', 'A truly fascinating species.');
 
 insert into comments (post_id, username, body, parent_id)
-values ( 1, 'Rick', 'Reply !', 1);
+values ( 1, 'Rick', 'Replying to you, Josh. I fully agree!', 1);
 
 insert into posts (title,
                    body,

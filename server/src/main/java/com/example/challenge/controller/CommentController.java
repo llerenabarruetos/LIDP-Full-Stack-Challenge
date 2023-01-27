@@ -19,6 +19,7 @@ import com.querydsl.core.types.Predicate;
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
+    // Outlines the request mappings for comments:
     @Autowired
     private CommentService commentService;
 
