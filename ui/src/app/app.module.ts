@@ -53,7 +53,6 @@ import { PostFocusViewComponent } from './components/post-focus-view/post-focus-
 import { CommentComponent } from './components/comment/comment.component';
 import { CommentService } from './services/comment.service';
 import { CommentFormComponent } from './components/comment-form/comment-form.component';
-import { ReplyCommentComponent } from './components/reply-comment/reply-comment.component';
 
 @NgModule({
   declarations: [
@@ -62,8 +61,7 @@ import { ReplyCommentComponent } from './components/reply-comment/reply-comment.
     PostLightViewComponent,
     PostFocusViewComponent,
     CommentComponent,
-    CommentFormComponent,
-    ReplyCommentComponent
+    CommentFormComponent
   ],
   imports: [
     CommonModule,
