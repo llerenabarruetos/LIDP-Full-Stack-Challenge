@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // Array of posts gotten from backend:
   posts: Array<Post> = [];
 
-  // Pagination of posts: Current page number (each page containing a number of posts specified in app.service.ts)
+  // Fetching of posts: Current page number (each page containing a number of posts specified in app.service.ts)
   currPage = 0;
   lastPage: number; // index of last page
 

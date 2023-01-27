@@ -7,7 +7,7 @@ import { handleError } from './error-handling.service';
 
 @Injectable()
 export class PostService {
-  // Page size for pagination of posts:
+  // Page size for dynamic fetching of posts:
   pageSize = 4;
 
   constructor(private http: HttpClient) {}

@@ -22,7 +22,7 @@ export class PostFocusViewComponent implements OnInit {
   // Current array of comments from backend for this post:
   comments: Array<Comment> = [];
 
-  // Current page of comments (for pagination)
+  // Current page of comments (for dynamic fetching with scrolling)
   currPage = 0;
   lastPage: number; // index of last page of comments
 

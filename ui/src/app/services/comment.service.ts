@@ -15,7 +15,7 @@ const httpOptions = {
 
 @Injectable()
 export class CommentService {
-  // Page size for pagination of comments:
+  // Page size for fetching of comments:
   pageSize = 4;
 
   constructor(private http: HttpClient) {}
@@ -39,7 +39,7 @@ export class CommentService {
         );
   }
 
-  // GET (paginated) Comments:
+  // GET (per page of 4 comments) Comments:
   getComments(pageNum: number, postId: number): Observable<any> {
     return this.http
         // Get specified page for the comments of post with given id. Sorted by date created (descending) and only those that aren't reply comments 
@@ -51,6 +51,7 @@ export class CommentService {
   }
 
   // DELETE comment:
+  // NOTE: In a future iteration of this application, a pop-up dialog for confirming deletion would be implemented ("Are you sure you want to delete this post by ___")
   deleteComment(commentId: number): Observable<any> {
     return this.http.delete(`${environment.server}/comments/${commentId}`)
         .pipe(
